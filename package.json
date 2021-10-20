@@ -1,0 +1,19 @@
+{
+    "name": "api-do-sistema",
+    "author": {
+        "name": "Lucas Souza Silva",
+        "email": "lucassouza0807@gmail.com"
+    },
+    "repository": {
+        "type": "GIT",
+        "url": "https://www.github.com/lucassouza0807"
+    },
+    "dependencies": {
+        "bcrypt": "^5.0.1",
+        "dotenv": "^10.0.0",
+        "express": "^4.17.1",
+        "mongoose": "^6.0.10"
+    },
+    "description": "api",
+    "license": "MIT"
+}
