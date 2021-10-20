@@ -1,4 +1,4 @@
-const User = require("../models/User")
+const User = require("../models/Usuario")
 
 async function registerNewUser(inputData = {}){
 
@@ -17,5 +17,7 @@ async function deleteUser(){}
 async function updateUser(){}
 
 module.exports = {
-    registerNewUser
+    registerNewUser,
+    deleteUser,
+    updateUser
 }

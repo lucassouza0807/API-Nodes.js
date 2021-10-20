@@ -2,9 +2,10 @@ const express = require("express")
 
 let router = express.Router()
 
-router.get('/home', async (req, res) => {
+//
+router.get('/api/v1/user/:user', async (req, res, next) => {
     res.json({
-        "msg" : "response"
+        "user" : req.params.user
     })
 })
 
