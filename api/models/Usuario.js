@@ -1,53 +1,43 @@
 require("dotenv")
 
-let mongoose = require('mongoose')
-let mongo = require("../config")
+let mongoose = require('mongoose');
+let connection = require("../config");
 
-const Usuario = mongoose.model("Usuario", {
-    "nome" : {
-        required : [true, "O campo nome não pode ser vazio."],
-        type : String
+const Usuario = mongoose.model("Usuarios",{
+   "nome" : {
+      required : [true,  "O campo cpf é  não pode ser vazio ."],
+      type : String
      },
-     "email" : {
-        type : String,
-        required : true,
-        unique  : true,
+   "email" : {
+      type : String,
+      unique  : true,
+      required : [true , 'O campo Email não pode ser vazio .'],
      },
-     "cpf" : {
-        type : String ,
-        unique : true,
-        required : true,
-        validate : {
-          validator : (fieldName) => {
-             return /^\d{3}\.\d{3}\.\d{3}\-\d{2}$/.test(fieldName)
-          },
-          message : props => `${props.value} Formato do cpf não é valido o formato é 000.000.000-00`
+   "rg" : {
+      type : String,
+      unique : true,
+   },
+   "cpf" : {
+      type : String ,
+      unique : true,
+      required : [true, "O campo CPF não pode ser vazio."],
+      validate : {
+         validator : (fieldName) => {
+            return /^\d{3}\.\d{3}\.\d{3}\-\d{2}$/.test(fieldName);
+         },
+         message : props => `O campo ${props.path} não está no formato correto o formato correto é 000.000.000-00 .\n`
         }
      },
-     "RG" : {
-        type : String,
-        required : true,
-        unique : true
-     },
-     "endereco" : {
-        "logradouro" : {
-            type : String,
-            required : true
-        },
-        "numero" : {
-           type : String,
-           required : true
-        },
-        "cep" : {
-            type : String,
-            required : true
-        },
-        "bairro" : {
-            type : String,
-            required :true
-        },
-     }
+     //O campo de endereço não vai ser obrigatorio
+   "endereco" : {
+      "logradouro" : { type : String },
+      "numero" : { type : String },
+      "cep" : { type : String },
+      "bairro" : { type : String },
+      "cidade" : { type : String },
+      "estado" : { type : String }
+   },
+});
 
-})
 
-module.exports = Usuario 
+module.exports = Usuario ;

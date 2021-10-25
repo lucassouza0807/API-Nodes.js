@@ -1,23 +1,22 @@
-const User = require("../models/Usuario")
+const Usuario = require("../models/Usuario")
 
-async function registerNewUser(inputData = {}){
+let http = require("http")
 
-    const user = await new User({
-        "email" : inputData.nome,
-        "nome" : inputData.email
+async function index(request){
+ 
+    let usuario = new Usuario({
+        "nome" : `${request.nome}`,
+        "email" : `${request.email}`,
+        "cpf" : `${request.cpf}`,
+        //"rg" : `${request.rg}`
     })
 
-    user.save()
-            .then( () => console.table({"Message: ": "Sucess"}))
-            .catch( (error_info) => console.table({"Error details :" : error_info}))
+    console.log(request.rg)
+    return usuario.save()
+    
+    
 }
 
-async function deleteUser(){}
-
-async function updateUser(){}
-
 module.exports = {
-    registerNewUser,
-    deleteUser,
-    updateUser
+    index
 }
