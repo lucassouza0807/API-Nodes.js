@@ -5,21 +5,22 @@ let router = express();
 router.use(express.urlencoded({ extended : true }));
 
 router.use(express.json());
-const registerController = require("../controllers/UserController");
+const registerController = require("../controllers/candidatoController");
 
-router.post("/post", (req, resp) => {
-    registerController.create("s", "#");
-})
+router.get("/user/:email", (req, resp) => {
+    registerController.getByEmail(req.params.email);
+});
 
 router.post("/post/user", (req, resp) => {
-    registerController.index(req.body)
-                      .then(() => {
-                          resp.json({"mensagem" : "Usuario cadastrado com suscesso"})
-                      })
-                      .catch((err) => {
-                          resp.json({"mensagem" : err.message})
-                      })
-
+    registerController.create(req.body)
+    .then((sucess) => { 
+        resp.send(sucess)
+     })
+    .catch((error) => {
+        console.log(req.body);
+        resp.json({"response" : error});
+        
+    });                  
 })
 router.post('/api/v1/user/post', () => {
 

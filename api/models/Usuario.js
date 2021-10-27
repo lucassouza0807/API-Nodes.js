@@ -3,32 +3,25 @@ require("dotenv")
 let mongoose = require('mongoose');
 let connection = require("../config");
 
-const Usuario = mongoose.model("Usuarios",{
+const usuario = mongoose.model("usuarios",{
    "nome" : {
-      required : [true,  "O campo cpf é  não pode ser vazio ."],
-      type : String
+      required : [true, "O campo nome é obrigatório."],
+      type : String,
      },
    "email" : {
       type : String,
       unique  : true,
-      required : [true , 'O campo Email não pode ser vazio .'],
-     },
-   "rg" : {
-      type : String,
-      unique : true,
+      required : [true, "O campo Email é obrigatório."]
    },
    "cpf" : {
       type : String ,
       unique : true,
-      required : [true, "O campo CPF não pode ser vazio."],
-      validate : {
-         validator : (fieldName) => {
-            return /^\d{3}\.\d{3}\.\d{3}\-\d{2}$/.test(fieldName);
-         },
-         message : props => `O campo ${props.path} não está no formato correto o formato correto é 000.000.000-00 .\n`
-        }
+      required : [true, "O campo cpf é obrigatório."],
      },
-     //O campo de endereço não vai ser obrigatorio
+   "senha" : {
+      type : String,
+      required : [true, "O campo senha é obrigatório."] 
+   },
    "endereco" : {
       "logradouro" : { type : String },
       "numero" : { type : String },
@@ -40,4 +33,4 @@ const Usuario = mongoose.model("Usuarios",{
 });
 
 
-module.exports = Usuario ;
+module.exports = usuario ;
