@@ -2,7 +2,7 @@ const HTTP = require("http")
 const express = require("express")
 
 //Routes
-const api = require("./api/routes/api")
+const vagas = require("./api/routes/vagas")
 const app = express()
 
 //Server settings
@@ -18,4 +18,4 @@ app.listen(PORT, async () => {
     console.log(`Server running at ${HOSTNAME}:${PORT}`);
 });
 
-app.use(api)
+app.use(vagas)
