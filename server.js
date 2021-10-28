@@ -6,7 +6,7 @@ const vagas = require("./api/routes/vagas")
 const app = express()
 
 //Server settings
-const HOSTNAME = "127.0.0.1" ;
+const HOSTNAME = "https://trabalhe-facil.herokuapp.com/" ;
 const PORT = 80 ;
 
 
