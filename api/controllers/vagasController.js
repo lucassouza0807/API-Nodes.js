@@ -1,4 +1,4 @@
-const vagas = require("../models/vagas");
+const vagas = require("./api/models/vagas");
 
 async function create(){
     let novaVaga = new vagas({
