@@ -8,7 +8,9 @@
         "type": "GIT",
         "url": "https://www.github.com/lucassouza0807"
     },
-    "main" : "server.js",
+    "scripts": {
+        "start": "server.js"
+    },
     "engines" : {
         "node": "v14.18.1"
     },
