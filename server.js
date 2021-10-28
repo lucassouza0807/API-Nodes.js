@@ -7,7 +7,7 @@ const app = express()
 
 //Server settings
 const HOSTNAME = "127.0.0.1" ;
-const PORT = 8000 ;
+const PORT = 80 ;
 
 
 const server = HTTP.createServer( async (request, response) => {
