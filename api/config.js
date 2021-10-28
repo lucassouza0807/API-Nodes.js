@@ -1,9 +1,7 @@
-require('dotenv').config()
+require("dotenv").config();
 
-let mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
-const database_env = process.env.MONGO_CONN
-
-const { connection } =  mongoose.connect(database_env).then( () => console.log("conectado")).catch( (error) => { console.log("Erro:", error)})
-
-module.exports = connection
+const connection = mongoose.connect(process.env.MONGO_CLUSTER)
+.then(() => { console.log("conectado")})
+.catch((error) => {console.log(error)})

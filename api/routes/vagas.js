@@ -10,10 +10,13 @@ router.use(express.json());
 
 //retorna todas as vagas disponiveis
 router.get("/api/v1/vagas", (req, resp) => {
-    vagaController.getAll()
+    vagaController.index()
     .then((vagas) => {
         resp.json(vagas);
     })
+    .catch(() => {
+        resp.sendStatus(500);
+    });
 });
 
 //retorna todas as vagas especificas sem nenhum filtro
@@ -29,7 +32,7 @@ router.get("/api/v1/vagas/:vaga", (req, resp) => {
 
 //retorna todas as vagas mas especificanfo só localização
 router.get("/api/v1/vagas/cidade/:cidade/estado/:estado", (req, resp) => {
-    vagaController.getByLocation(req.params)
+    vagaController.getAllByLocation(req.params)
     .then((vaga) => {
         resp.json(vaga);
     })

@@ -1,7 +1,7 @@
 let mongoose = require('mongoose');
 let connection = require("../config");
 
-const Vagas = mongoose.model("vagas", {
+const vagas = mongoose.model("vagas", {
     "empresa" : {
         type : String,
         required : true
@@ -12,9 +12,10 @@ const Vagas = mongoose.model("vagas", {
         lowercase : true
     },
     "exigencias" : {
-        type : String,
-        required : true,
-    },
+        type : Array,
+        required : true
+    }
+    ,
     "descricao" : {
         type : String,
         required : true
@@ -24,7 +25,7 @@ const Vagas = mongoose.model("vagas", {
         required : true,
     },
     "salario" : {
-        type : String,
+        type : Number,
         default : "A combinar",
     },
     "cidade" : {
@@ -37,4 +38,4 @@ const Vagas = mongoose.model("vagas", {
     }
 })
 
-module.exports = Vagas
+module.exports = vagas

@@ -1,15 +1,15 @@
-const vagas = require("../models/Vagas");
+const vagas = require("../models/vagas");
 
 async function create(){
     let novaVaga = new vagas({
-        "cnpj" : "88.861.511/0001-49",
-        "empresa" : "brasil park",
-        "cargo" : "atendente de caixa",
-        "exigencias" : "Ensino medio completo, 3 anos de experiencia, pegar até duas condução",
-        "descricao" : "vai ficar no caixa",
-        "contrato" : "CLT",
-        "salario" : 1600.45,
-        "cidade" : "Embu das Artes",
+        "cnpj" : "83.245.361/0001-25",
+        "empresa" : "joão peão ltda",
+        "cargo" : "pedreiro",
+        "exigencias" : ["Ensino fudamental", "CHN B", "Experiencia de 1 ano"],
+        "descricao" : "Vai bater laje, carregar cimento nas costas, comer marmita boa, assuviar pra mulher na rua, levantar parede etc",
+        "contrato" : "CLT, pj",
+        "salario" : 2200.00,
+        "cidade" : "Guarulhos",
         "estado" : "SP"
     })
 
@@ -18,20 +18,19 @@ async function create(){
     });
 }
 
-async function getAll() {
+async function index() {
     let query = await vagas.find().exec();
 
     return Promise.resolve(query);
 }
 
 async function getByCargo(cargo) {
-    let a = "atendente de caixa" ;
-    const count = await vagas.count({"cargo" : new RegExp(cargo, /^/)}).exec();
-    console.log(count);
-    console.log("v", cargo);
     
+    const count = await vagas.count({"cargo" : cargo}).exec();
+    console.log(count);
+ 
     if(count > 0) {
-        const query = await vagas.find({"cargo" : new RegExp(cargo, /^/)}).exec();
+        const query = await vagas.find({"cargo" : cargo}).exec();
         console.log(cargo);
         return Promise.resolve(query);
         
@@ -48,6 +47,7 @@ async function getAllByLocation(param) {
         {"estado" : param.estado}
         ]
         }).exec();
+    console.log(count);
             
     if(count > 0) {
         const query = await vagas.find({
@@ -67,7 +67,7 @@ async function getAllByLocation(param) {
 async function getByLocation(param) {
     const count = await vagas.count({
         $and: [
-        {"cargo" : /^[${param.cargo}]/},
+        {"cargo" : param.cargo},
         {"cidade" : param.cidade},
         {"estado" : param.estado}
         ]
@@ -76,7 +76,7 @@ async function getByLocation(param) {
     if(count > 0) {
         const query = await vagas.find({
             $and: [
-            {"cargo" : /^[${param.cargo}]/},
+            {"cargo" : param.cargo},
             {"cidade" : param.cidade},
             {"estado" : param.estado}
             ]
@@ -89,8 +89,10 @@ async function getByLocation(param) {
     }
 }
 
+create();
+
 module.exports = {
-    getAll,
+    index,
     getByCargo,
     getAllByLocation,
     getByLocation
