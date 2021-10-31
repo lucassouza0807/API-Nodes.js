@@ -1,22 +1,7 @@
 const vagas = require("../models/Vagas");
 
-async function create(){
-    let novaVaga = new vagas({
-        "cnpj" : "83.245.361/0001-25",
-        "empresa" : "joão peão ltda",
-        "cargo" : "pedreiro",
-        "exigencias" : ["Ensino fudamental", "CHN B", "Experiencia de 1 ano"],
-        "descricao" : "Vai bater laje, carregar cimento nas costas, comer marmita boa, assuviar pra mulher na rua, levantar parede etc",
-        "contrato" : "CLT, pj",
-        "salario" : 2200.00,
-        "cidade" : "Guarulhos",
-        "estado" : "SP"
-    })
-
-    return novaVaga.save().then((e) => {
-        return Promise.resolve("Meu ovo")
-    });
-}
+const NOT_FOUND = 404 ;
+const BAD_REQUEST = 500 ;
 
 async function index() {
     let query = await vagas.find().exec();
@@ -36,7 +21,7 @@ async function getByCargo(cargo) {
         
 
     }else if (count == 0 ) {
-        return Promise.reject({"mensagem" : "Não encontrado"});
+        return Promise.reject(NOT_FOUND);
     }
 }
 
@@ -60,7 +45,7 @@ async function getAllByLocation(param) {
         return Promise.resolve(query);
 
     }else if (count == 0 ) {
-        return Promise.reject({"mensagem" : "Não encontrado"});
+        return Promise.reject(NOT_FOUND);
     }
 }
 
@@ -85,11 +70,9 @@ async function getByLocation(param) {
         return Promise.resolve(query);
 
     }else if (count == 0 ) {
-        return Promise.reject({"mensagem" : "Não encontrado"});
+        return Promise.reject(NOT_FOUND);
     }
 }
-
-create();
 
 module.exports = {
     index,

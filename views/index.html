@@ -1,0 +1,40 @@
+<html>
+
+<body>
+    <div id="timer">
+        <h1> 00:00:00 </h1>
+    </div>
+    
+    <form action="" method="post">
+        <div id="form">
+            <input id = "input" type="text" name="nome">
+        </div>
+    </form>
+    <div id="buttons">
+        <button id="btn" onclick="">INICIAR</button>
+    </div>
+</body>
+
+</html>
+<script>
+
+    function timer(segundos) {
+        let time = new Date(segundos * 1000);
+
+        return time.toLocaleTimeString('pt-BR', {
+            hour12: false,
+            timeZone: 'GMT'
+        });
+
+    }
+
+
+    const button = document.getElementById("btn")
+
+    button.addEventListener("click", (event) => {
+        let value = document.getElementById("input").value
+        let timerDiv = document.getElementById("timer").innerHTML = value 
+
+    })
+
+</script>

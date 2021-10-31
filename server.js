@@ -1,21 +1,25 @@
+//modules
 require("dotenv").config();
 
+//express
 const HTTP = require("http");
 const express = require("express");
-
-//Routes
-const vagas = require("./api/routes/vagas");
 const app = express()
 
-//Server settings
+//Routes
+const public_routes = require("./api/routes/public_routes");
+const auth_routes = require("./api/routes/auth_routes");
 
-
-const server = HTTP.createServer( async (request, response) => {
+//server 
+const { hostname } = "localhost"
+const server = HTTP.createServer(async (request, response) => {
     response.setHeader("Content-Type", "application/json");
 });
 
-app.listen(process.env.PORT, async () => {
-    console.log(`Server running at ${HOSTNAME}:${PORT}`);
+
+app.listen(8000, async () => {
+
 });
 
-app.use(vagas);
+app.use(auth_routes);
+app.use(public_routes);
