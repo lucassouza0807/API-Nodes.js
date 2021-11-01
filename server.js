@@ -7,8 +7,8 @@ const express = require("express");
 const app = express()
 
 //Routes
-const public_routes = require("./api/routes/public_routes");
-const auth_routes = require("./api/routes/auth_routes");
+const api = require("./src/routes/api");
+const web = require("./src/routes/web");
 
 //server 
 const { hostname } = "localhost"
@@ -16,10 +16,9 @@ const server = HTTP.createServer(async (request, response) => {
     response.setHeader("Content-Type", "application/json");
 });
 
-
-app.listen(8000, async () => {
+app.listen(process.env.PORT, async () => {
 
 });
 
-app.use(auth_routes);
-app.use(public_routes);
+app.use(web);
+app.use(api);
