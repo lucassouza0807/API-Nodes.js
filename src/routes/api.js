@@ -12,6 +12,7 @@ router.use(express.urlencoded({ extended: true }));
 router.use(express.json());
 
 //Routes
+
 router.get("/api/v1/vagas", (req, resp) => {
     vagaController.getAllJobs()
         .then((vagas) => {

@@ -1,41 +1,50 @@
+const { text } = require('express');
 let mongoose = require('mongoose');
 let connection = require("../config");
 
-const vagas = mongoose.model("vagas", {
-    "empresa": {
-        type: String,
-        required: [true, "não pode ser vazio."]
-    },
+const vagasSchema = new mongoose.Schema({
     "cargo": {
         type: String,
-        required: [true, "não pode ser vazio."],
-        lowercase: true
-    },
-    "exigencias": {
-        type: Array,
-        required: [true, "não pode ser vazio."],
-    }
-    ,
-    "descricao": {
-        type: String,
-        required: [true, "não pode ser vazio."],
-    },
-    "contrato": {
-        type: String,
-        required: [true, "não pode ser vazio."],
+        required: true
     },
     "salario": {
         type: Number,
-        default: "A combinar",
+        default: 0
     },
-    "cidade": {
+    "exigencias": {
+        type: Array,
+    },
+    "descricao": {
+        type: String,
+        required: true
+    },
+    "tipo_cotrato": {
         type: String,
 
     },
-    "estado": {
-        type: String,
-
-    }
 })
 
-module.exports = vagas
+const empresaSchema = mongoose.Schema({
+    "cnpj": {
+        type: String,
+        unique: true,
+
+    },
+    "nome_empresa": {
+        type: String,
+        required: [true, "não pode ser vazio."]
+    },
+    "descricao_empresa": {
+        type: String
+    },
+    vagas: [vagasSchema]
+})
+
+let empresaModel = mongoose.model("empresa", empresaSchema);
+let vagasModel = mongoose.model("vagas", vagasSchema);
+
+module.exports = {
+    empresaModel,
+    vagasModel
+}
+

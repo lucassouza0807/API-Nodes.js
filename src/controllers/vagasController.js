@@ -17,16 +17,18 @@ async function create(input) {
         .then(() => {
             return Promise.resolve({"response" : "inserido com suscesso"})
         })
-        .catch(() => {
+        .catch((error) => {
             
         })
 }
 
 async function getAllJobs() {
-    let query = await vaga.find().exec();
+    let query = await empresaModel.find();
 
     return Promise.resolve(query);
 }
+
+getAllJobs().then((e) => console.log(e));
 
 async function getByJobName(cargo) {
 
