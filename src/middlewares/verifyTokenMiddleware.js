@@ -1,15 +1,12 @@
-let token = req.headers.authorization;
+jwt = require("jsonwebtoken");
 
-    if (!token) {
-        return resp.sendStatus(401).json({ auth: false, message: "Nenhum token foi enviado" });
-    }
+module.exports =
+    async function verify(req, resp, next) {
+        let token = req.headers.authorization;
 
-    let splitedToken = token.split(" ");
-
-    let signature = splitedToken[1];
-
-    try {
-        jwt.verify(signature, process.env.API_SECRET);
-    } catch (e) {
-        console.log(e);
+        if (!token) {
+            resp.sendStatus(401);
+        } else {
+            return next();
+        }
     }

@@ -2,7 +2,7 @@ const { default: jwtDecode } = require("jwt-decode");
 bcrypt = require("bcryptjs");
 let session = require("express-session");
 
-let Usuario = require("../models/User");
+let Usuario = require("../models/usuariosModel");
 
 async function login(token) {
     let decodedToken = jwtDecode(token);
@@ -16,15 +16,20 @@ async function login(token) {
     }
 
     let query = await Usuario.findOne({ "email": email });
-
+    
     if (senha == query.senha) {
-        return Promise.resolve("Logado");
+        let sessionParams = {
+            "expTime" : 16000,
+            "sessionToken" : token
+        }
+
+        return Promise.resolve(sessionParams);
+        
     } else if (senha !== query.senha) {
         return Promise.reject("Senha errada");
     }
 
 }
-
 
 module.exports = {
     login

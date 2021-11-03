@@ -20,8 +20,13 @@ const vagasSchema = new mongoose.Schema({
     },
     "tipo_cotrato": {
         type: String,
-
     },
+    "cidade": {
+        type: String
+    },
+    "estado": {
+        type: String
+    }
 })
 
 const empresaSchema = mongoose.Schema({
@@ -41,10 +46,9 @@ const empresaSchema = mongoose.Schema({
 })
 
 let empresaModel = mongoose.model("empresa", empresaSchema);
-let vagasModel = mongoose.model("vagas", vagasSchema);
 
 module.exports = {
-    empresaModel,
-    vagasModel
+    empresaModel
 }
+
 

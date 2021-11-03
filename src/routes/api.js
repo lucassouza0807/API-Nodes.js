@@ -1,26 +1,36 @@
 //modules
 const express = require("express");
+const session = require("express-session");
 const jwt_decode = require('jwt-decode');
+const jwt = require("jsonwebtoken");
 
 //Controllers
-const vagaController = require("../controllers/vagasController");
+const VagaController = require("../controllers/jobController");
+const LoginController = require("../controllers/loginController");
+
+//middlewares
+const verfyTokenMiddleware = require("../middlewares/verifyTokenMiddleware");
 
 //Express
 let router = express();
+
 router.use(express.urlencoded({ extended: true }));
 
 router.use(express.json());
+router.use(session({
+    secret: process.env.API_SECRET,
+    resave: true,
+    saveUninitialized: false
+}))
+
 
 //Routes
-
-router.get("/api/v1/vagas", (req, resp) => {
-    vagaController.getAllJobs()
-        .then((vagas) => {
-            resp.json(vagas);
+router.post("/api/login", verfyTokenMiddleware, (req, resp) => {
+    let token = req.headers["authorization"];
+    LoginController.login(token)
+        .then(() => {
+            resp.json({ "message": "logado com suscesso" })
         })
-        .catch((status) => {
-            resp.sendStatus(404);
-        });
 
 });
 
@@ -30,7 +40,7 @@ router.get("/api/v1/vagas/:vaga", (req, resp) => {
             resp.json(vagas);
         })
         .catch((status) => {
-            resp.sendStatus(status);
+            resp.send(status);
         });
 });
 
@@ -45,6 +55,10 @@ router.get("/api/v1/vagas/:vaga/cidade/:cidade/estado/:estado", (req, resp) => {
 
 })
 
+
+router.get("/teste", (req, resp, next) => {
+    console.log(req.sessionID);
+});
 //not found handler
 router.use((req, resp, next) => {
     if (!req.route) {
