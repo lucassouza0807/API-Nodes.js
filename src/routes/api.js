@@ -59,6 +59,7 @@ router.get("/api/v1/vagas/:vaga/cidade/:cidade/estado/:estado", (req, resp) => {
 router.get("/teste", (req, resp, next) => {
     console.log(req.sessionID);
 });
+
 //not found handler
 router.use((req, resp, next) => {
     if (!req.route) {
