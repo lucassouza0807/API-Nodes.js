@@ -14,6 +14,7 @@ const web = require("./src/routes/web");
 const { hostname } = "localhost"
 const server = HTTP.createServer(async (request, response) => {
     response.setHeader("Content-Type", "application/json");
+	response.setHeader("access-control-allow-origin", "*");
 });
 
 app.listen(process.env.PORT, async () => {

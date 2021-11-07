@@ -5,7 +5,7 @@ const jwt_decode = require('jwt-decode');
 const jwt = require("jsonwebtoken");
 
 //Controllers
-const VagaController = require("../controllers/jobController");
+const jobController = require("../controllers/jobController");
 const LoginController = require("../controllers/loginController");
 
 //middlewares
@@ -35,7 +35,7 @@ router.post("/api/login", verfyTokenMiddleware, (req, resp) => {
 });
 
 router.get("/api/v1/vagas/:vaga", (req, resp) => {
-    vagaController.getByJobName(req.params.vaga)
+    jobController.getByJobName(req.params.vaga)
         .then((vagas) => {
             resp.json(vagas);
         })
@@ -45,7 +45,7 @@ router.get("/api/v1/vagas/:vaga", (req, resp) => {
 });
 
 router.get("/api/v1/vagas/:vaga/cidade/:cidade/estado/:estado", (req, resp) => {
-    vagaController.getJobByLocation(req.params)
+    jobController.getJobByLocation(req.params)
         .then((vagas) => {
             resp.json(vagas)
         })
@@ -55,10 +55,6 @@ router.get("/api/v1/vagas/:vaga/cidade/:cidade/estado/:estado", (req, resp) => {
 
 })
 
-
-router.get("/teste", (req, resp, next) => {
-    console.log(req.sessionID);
-});
 
 //not found handler
 router.use((req, resp, next) => {

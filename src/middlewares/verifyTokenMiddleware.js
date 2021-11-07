@@ -1,5 +1,4 @@
 jwt = require("jsonwebtoken");
-let env = require("dotenv").config();
 
 module.exports =
     async function verify(req, resp, next) {
@@ -9,8 +8,8 @@ module.exports =
             resp.sendStatus(401).json({ "message": "nenhum token foi enviado" });
         }
 
-        let splitedToken = token.split(" ");
-        let signature = splitedToken[1];
+        let splittedToken = token.split(" ");
+        let signature = splittedToken[1];
 
         try {
             jwt.verify(signature, process.env.API_SECRET);
